@@ -1,0 +1,61 @@
+git clone 文件地址（克隆文件到本地）
+npm install --global vue-cli   （–global：全局安装）
+vue init webpack test（test为我的项目名称）
+
+“Project name”：这个是项目名称，默认是输入时的那个名称，想改的话直接输入修改，也可以直接回车
+
+“Install vue-router”:是否需要vue-router，这里默认选择使用，这样生成好的项目就会有相关的路由配置文件
+
+“Use ESLint to lint your code”:是否使用ESLint，刚才说了我们这个项目需要使用所以也是直接回车，默认使用，这样会生成相关的ESLint配置
+
+“Setup unit tests with Karma + Moch?”: 是否安装单元测试。由于我们现在还没有单元测试，所以这里选择的是”N”，而不是直接回车哦
+
+“Setup e2e tests with Nightwatch”：是否安装e2e测试，这里我也同样选择的是“N”
+
+这几个配置选择yes 或者 no 对于我们项目最大的影响就是，如果选择了yes 则生成的项目会自动有相关的配置，有一些loader我们就要配套下载。所以如果我们确定不用的话最好不要yes，要么下一步要下很多没有用的loader
+
+
+
+
+
+
+
+其中config文件夹下有一个Index.js 是这个文件进行配置代理服务器，这个地方和我们息息相关，和后台联调就是在这里设置一个地址就可以了。打开index.js 找到“proxyTable“这个属性，然后在里面加上对应的后台地址即可（http://localhost:8080/#/包括端口号
+）
+
+
+
+
+
+
+src文件夹：
+  这个文件夹是整个项目最主要以及使用频率最高的文件夹。
+
+“assets”: 共用的样式、图片
+
+“components”: 业务代码存放的地方，里面分成一个个组件存放，一个页面是一个组件，一个页面里面还会包着很多组件
+
+“router”: 设置路由
+
+“App.vue”: vue文件入口界面
+
+“main.js：对应App.vue 创建vue实例，也是入口文件，对应webpack.base.config.js里的入口配置
+
+
+static 文件夹：
+存放的文件不会经过webpack处理，可以直接引用，例如swf文件如果要引用可以在webpack配置对swf后缀名的文件处理的loader，也可以直接将swf文件放在这个文件夹引用
+
+
+
+package.json:
+这个文件有两部分是有用的：scripts 里面设置命令，例如设置了dev用于调试则我们开发时输入的是
+npm run dev ；例如设置了build 则是输入 npm run build 用于打包;另一部分是这里可以看到我们需要的依赖包,在dependencies和devDependencies中，分别对应全局下载和局部下载的依赖包
+
+
+
+
+
+npm install --global vue-cli 下载vue-cli脚手架
+vue init webpack test 生成项目，形成基本结构
+npm install 依赖包
+npm run dev 运行
