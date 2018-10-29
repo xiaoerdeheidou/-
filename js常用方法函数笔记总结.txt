@@ -1,0 +1,1168 @@
+js常用通用函数
+//判断是否数字
+
+复制代码
+ function isNumber(str){
+     var n = Number(str);
+     if (!isNaN(n)){
+         return true;
+     }else{
+         return false;
+     }
+ }
+复制代码
+//判断是否对象
+
+复制代码
+ function isObj(obj){
+     if(typeof obj=="object"){
+         return true;
+     }else{
+         return false;
+     }
+ }
+复制代码
+//判断是否为空
+
+复制代码
+ function emptyFun(obj){
+     var obj=obj;
+     if(obj==""||obj==null||obj==undefined||obj=="null"||obj=="undefined"){
+         return true;
+     }else{
+         return false;
+     }
+ }
+复制代码
+//获取地址栏参数
+
+ function GetQueryString(name){
+      var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+      var r = window.location.search.substr(1).match(reg);
+      if(r!=null)return  unescape(r[2]); return null;
+ }
+//转换时间格式 eg:1972-10-26
+
+复制代码
+ function getLocalTime(nS) {
+     var now = new Date(nS);
+     if(!now){
+         return 0;
+     }else{
+         var year=now.getFullYear();//年
+         var month=now.getMonth()+1;//月
+         var date=now.getDate();//日
+         var hour=now.getHours();//时
+         var minute=now.getMinutes();//分
+         var second=now.getSeconds();//秒
+         return year+"-"+month+"-"+date;
+     }
+ }
+复制代码
+//数组去重
+
+复制代码
+ Array.prototype.unique1 = function(){
+     var res = [this[0]];
+     for(var i = 1; i < this.length; i++){
+         var repeat = false;
+         for(var j = 0; j < res.length; j++){
+             if(this[i] == res[j]){
+                 repeat = true;
+                 break;
+             }
+         }
+         if(!repeat){
+             res.push(this[i]);
+         }
+     }
+     return res;
+ }
+复制代码
+//校验是否全由数字组成 
+
+ function isDigit(s) 
+ { 
+     var patrn=/^[0-9]{1,20}$/; 
+     if (!patrn.exec(s)) return false 
+     return true 
+ } 
+//校验登录名：只能输入5-20个以字母开头、可带数字、“_”、“.”的字串 
+
+ function isRegisterUserName(s) 
+ { 
+     var patrn=/^[a-zA-Z]{1}([a-zA-Z0-9]|[._]){4,19}$/; 
+     if (!patrn.exec(s)) return false 
+     return true 
+ } 
+//校验用户姓名：只能输入1-30个以字母开头的字串 
+
+function isTrueName(s) 
+{ 
+    var patrn=/^[a-zA-Z]{1,30}$/; 
+    if (!patrn.exec(s)) return false 
+    return true 
+} 
+//校验密码：只能输入6-20个字母、数字、下划线 
+
+function isPasswd(s) 
+{ 
+    var patrn=/^(\w){6,20}$/; 
+    if (!patrn.exec(s)) return false 
+    return true 
+} 
+//校验普通电话、传真号码：可以“+”开头，除数字外，可含有“-” 
+
+复制代码
+ function isTel(s) 
+ { 
+     //var patrn=/^[+]{0,1}(\d){1,3}[ ]?([-]?(\d){1,12})+$/; 
+     var patrn=/^[+]{0,1}(\d){1,3}[ ]?([-]?((\d)|[ ]){1,12})+$/; 
+     if (!patrn.exec(s)) return false 
+     return true 
+ } 
+复制代码
+//校验手机号码：必须以数字开头，除数字外，可含有“-”
+
+ function isMobil(s) 
+ { 
+     var patrn=/^[+]{0,1}(\d){1,3}[ ]?([-]?((\d)|[ ]){1,12})+$/; 
+     if (!patrn.exec(s)) return false 
+     return true 
+ } 
+//校验邮政编码 
+
+function isPostalCode(s) 
+{ 
+　　var patrn=/^[a-zA-Z0-9 ]{3,12}$/; 
+　　if (!patrn.exec(s)) return false 
+　　return true 
+} 
+ //校验搜索关键字 
+
+复制代码
+function isSearch(s) 
+{ 
+    var patrn=/^[^`~!@#$%^&*()+=|\\\][\]\{\}:;\'\,.<>/?]{1}[^`~!@$%^&()+=|\\\][\]\{\}:;\'\,.<>?]{0,19}$/; 
+    if (!patrn.exec(s)) return false 
+    return true 
+} 
+复制代码
+ //检测IP地址
+
+function isIP(s) 
+{ 
+    var patrn=/^[0-9.]{1,20}$/; 
+    if (!patrn.exec(s)) return false 
+    return true 
+} 
+//转换时间  eg：1972/10/26 上午3:21
+
+复制代码
+ function getLocalTime(nS) {
+      if(!nS){
+          return 0;
+      }else{
+          return new Date(parseInt(nS)).toLocaleString().replace(/:\d{1,2}$/,' ');
+      }
+  }
+复制代码
+ //对象排序
+
+var dic={x:2,z:1,y:3};//输出   {z:1，x:2，y:3}
+ var sdic=Object.keys(dic).sort(function(a,b){return dic[a]-dic[b]});
+ for(ki in sdic){                     
+    console.log(sdic[ki]+":"+dic[sdic[ki]]+",");
+ }
+ // js sort方法根据数组中对象的某一个属性值进行排序
+
+复制代码
+function keysrt(key,desc) { 
+    return function(a,b){ 
+        return desc ? ~~(a[key] < b[key]) : ~~(a[key] > b[key]);
+    }
+}
+使用：
+　　var ary=[{id:1,name:"b"},{id:2,name:"b"}];
+　　ary.sort(keysrt('name',true));
+ 
+复制代码
+ //js排序数字，js排序字母，js最大值，js最小值
+
+复制代码
+// 支持IE7
+var fruits = [454, 1331, 14, 355];
+fruits.sort(function(a,b){return a-b});
+alert(fruits.toString());// 不支持IE7及以下，最小值
+var a = [3332, 3400, 500, 710];
+var lowValue = a.concat().sort(function(a, b){return a - b})[0];
+var lowIndex = a.indexOf(lowValue);
+alert(lowValue);
+
+// 不支持IE7及以下，比较小数最小值
+var array, min, index;
+array = [711.22,22.22,3400.121,500.55,6.2,710];
+min = Math.min.apply(null, array);
+index = array.indexOf(min);
+alert(array[index]);
+
+// 正序排序字母
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+fruits.sort();
+// Apple,Banana,Mango,Orange
+
+// 倒叙排列字母
+var fruits = ["Banana", "Orange", "Apple", "Mango"];
+fruits.sort();
+fruits.reverse();
+// Orange,Mango,Banana,Apple
+
+// 正序排序数字
+var points = [40,100,1,5,25,10];
+points.sort(function(a,b){return a-b});
+// 1,5,10,25,40,100
+
+// 倒叙排列数字
+var points = [40,100,1,5,25,10];
+points.sort(function(a,b){return b-a});
+// 100,40,25,10,5,1
+复制代码
+1
+2
+3
+4
+//例如删除C这个元素 ，前提不知道C在这个数组的下标
+var arr = ['a','b','c','d'];
+arr.splice($.inArray('c',arr),1);
+alert(arr);
+　　
+
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+//在数组中查找指定值并返回它的索引（如果没有找到，则返回-1）。
+ 
+jQuery.inArray( value, array [, fromIndex ] )
+$.inArray( 5 + 5, [ "8", "9", "10", 10 + "" ] );
+demo:
+var arr = [ 4, "Pete", 8, "John" ];
+var $spans = $("span");
+$spans.eq(0).text(jQuery.inArray("John", arr));  //"John" found at 3
+$spans.eq(1).text(jQuery.inArray(4, arr)); //4 found at 0
+$spans.eq(2).text(jQuery.inArray("Karl", arr)); //"Karl" not found, so -1
+$spans.eq(3).text(jQuery.inArray("Pete", arr, 2)); //"Pete" is in the array, but not at or after ind
+
+
+1.常规函数 
+　　javascript常规函数包括以下9个函数： 
+　　(1)alert函数：显示一个警告对话框，包括一个OK按钮。 
+　　(2)confirm函数：显示一个确认对话框，包括OK、Cancel按钮。 
+　　(3)escape函数：将字符转换成Unicode码。 
+　　(4)eval函数：计算表达式的结果。 
+　　(5)isNaN函数：测试是(true)否(false)不是一个数字。 
+　　(6)parseFloat函数：将字符串转换成符点数字形式。 
+　　(7)parseInt函数：将符串转换成整数数字形式(可指定几进制)。 
+　　(8)prompt函数：显示一个输入对话框，提示等待用户输入。例如： 
+　　(9)unescape函数：解码由escape函数编码的字符。
+
+ 2.数组函数 
+
+　　javascript数组函数包括以下4个函数： 
+　　(1)join函数：转换并连接数组中的所有元素为一个字符串。例: 程序代码
+
+function JoinDemo() { 
+        var a, b; 
+        a = new Array(0,1,2,3,4); 
+        b = a.join("-");//分隔符 
+        return(b);//返回的b=="0-1-2-3-4" 
+}
+　(2)length函数：返回数组的长度。例：  程序代码
+
+ function LengthDemo() { 
+　　　var a, l; 
+　　　a = new Array(0,1,2,3,4); 
+　　　l = a.length; 
+　　　return(l);//l==5 
+}
+　　(3)reverse函数：将数组元素顺序颠倒。例： 程序代码
+
+function ReverseDemo() {
+　　var a, l; 
+　　a = new Array(0,1,2,3,4); 
+　　l = a.reverse(); 
+　　return(l); 
+}  
+　　(4)sort函数：将数组元素重新排序。例：
+
+function SortDemo() {
+　　var a, l; 
+　　a = new Array("X" ,"y" ,"d", "Z", "v","m","r"); 
+　　l = a.sort(); 
+　　return(l); 
+}  
+3.日期函数 
+
+　　javascript日期函数包括以下20个函数： 
+　　(1)getDate函数：返回日期的“日”部分，值为1～31。例： 
+
+复制代码
+function DateDemo() { 
+　　var d, s = "Today's date is: "; 
+　　d = new Date(); 
+　　s += (d.getMonth() + 1) + "/"; 
+　　s += d.getDate() + "/"; 
+　　s += d.getYear(); 
+　　return(s); 
+}  
+复制代码
+　　(2)getDay函数：返回星期几，值为0～6，其中0表示星期日，1表示星期一，...，6表示星期六。例： 
+
+复制代码
+ function DateDemo() { 
+　　var d, day, x, s = "Today is: "; 
+　　var x = new Array("Sunday", "Monday", "Tuesday"); 
+　　var x = x.concat("Wednesday","Thursday", "Friday"); 
+　　var x = x.concat("Saturday"); 
+　　d = new Date(); 
+　　day = d.getDay(); 
+　　return(s += x[day]); 
+　}  
+复制代码
+　　(3)getHouse函数：返回日期的“小时”部分，值为0～23。例。 
+
+复制代码
+ function TimeDemo() { 
+　　　　var d, s = "The current local time is: "; 
+　　　　var c = ":"; 
+　　　　d = new Date(); 
+　　　　s += d.getHours() + c; 
+　　　　s += d.getMinutes() + c; 
+　　　　s += d.getSeconds() + c; 
+　　　　s += d.getMilliseconds(); 
+　　　　return(s); 
+}  
+复制代码
+　　(4)getMinutes函数：返回日期的“分钟”部分，值为0～59。见上例。 
+
+　　(5)getMonth函数：返回日期的“月”部分，值为0～11。其中0表示1月，2表示3月，...，11表示12月。见前面的例子。 
+　　(6)getSeconds函数：返回日期的“秒”部分，值为0～59。见前面的例子。 
+　　(7)getTime函数：返回系统时间。 
+
+复制代码
+ function GetTimeTest() { 
+　　　　var d, s, t; 
+　　　　var MinMilli = 1000 * 60; 
+　　　　var HrMilli = MinMilli * 60; 
+　　　　var DyMilli = HrMilli * 24; 
+　　　　d = new Date(); 
+　　　　t = d.getTime(); 
+　　　　s = "It's been " 
+ 　　　　s += Math.round(t / DyMilli) + " days since 1/1/70"; 
+ 　　　　return(s); 
+}  
+复制代码
+　　(8)getTimezoneOffset函数：返回此地区的时差(当地时间与GMT格林威治标准时间的地区时差)，单位为分钟。 
+
+复制代码
+ function TZDemo() { 
+ 　　　　var d, tz, s = "The current local time is "; 
+ 　　　　d = new Date(); 
+ 　　　　tz = d.getTimezoneOffset(); 
+ 　　　　if (tz < 0) 
+ 　　　　s += tz / 60 + " hours before GMT"; 
+ 　　　　else if (tz == 0) 
+ 　　　　s += "GMT"; 
+ 　　　　else 
+ 　　　　s += tz / 60 + " hours after GMT"; 
+ 　　　　return(s); 
+} 
+复制代码
+　　(9)getYear函数：返回日期的"年"部分。返回值以1900年为基数，例如1999年为99。前面有例子。 
+　　(10)parse函数：返回从1970年1月1日零时整算起的毫秒数(当地时间)。 
+
+复制代码
+ function GetTimeTest(testdate) { 
+ 　　　　var d, s, t; 
+ 　　　　var MinMilli = 1000 * 60; 
+ 　　　　var HrMilli = MinMilli * 60; 
+ 　　　　var DyMilli = HrMilli * 24; 
+ 　　　　d = new Date(); 
+ 　　　　t = Date.parse(testdate); 
+ 　　　　s = "There are " 
+ 　　　　s += Math.round(Math.abs(t / DyMilli)) + " days " 
+ 　　　　s += "between " + testdate + " and 1/1/70"; 
+ 　　　　return(s); 
+} 
+复制代码
+　　(11)setDate函数：设定日期的"日"部分，值为0～31。 
+　　(12)setHours函数：设定日期的"小时"部分，值为0～23。 
+　　(13)setMinutes函数：设定日期的"分钟"部分，值为0～59。 
+　　(14)setMonth函数：设定日期的"月"部分，值为0～11。其中0表示1月，...，11表示12月。 
+　　(15)setSeconds函数：设定日期的"秒"部分，值为0～59。 
+　　(16)setTime函数：设定时间。时间数值为1970年1月1日零时整算起的毫秒数。 
+　　(17)setYear函数：设定日期的"年"部分。 
+　　(18)toGMTString函数：转换日期成为字符串，为GMT格林威治标准时间。 
+　　(19)setLocaleString函数：转换日期成为字符串，为当地时间。 
+　　(20)UTC函数：返回从1970年1月1日零时整算起的毫秒数，以GMT格林威治标准时间计算。 
+
+4.数学函数 
+　　javascript数学函数其实就是Math对象，它包括属性和函数(或称方法)两部分。其中，属性主要有下列内容。 
+　　Math.e:e(自然对数)、Math.LN2（2的自然对数)、Math.LN10(10的自然对数)、Math.LOG2E(e的对数，底数为2)、   
+
+      Math.LOG10E(e的对数，底数为10)、Math.PI(π)、Math.SQRT1_2(1/2的平方根值)、Math.SQRT2(2的平方根值)。 
+　　函数有以下18个： 
+　　(1)abs函数：即Math.abs(以下同)，返回一个数字的绝对值。 
+　　(2)acos函数：返回一个数字的反余弦值，结果为0～π弧度(radians)。 
+　　(3)asin函数：返回一个数字的反正弦值，结果为-π/2～π/2弧度。 
+　　(4)atan函数：返回一个数字的反正切值，结果为-π/2～π/2弧度。 
+　　(5)atan2函数：返回一个坐标的极坐标角度值。 
+　　(6)ceil函数：返回一个数字的最小整数值(大于或等于)。 
+　　(7)cos函数：返回一个数字的余弦值，结果为-1～1。 
+　　(8)exp函数：返回e(自然对数)的乘方值。 
+　　(9)floor函数：返回一个数字的最大整数值(小于或等于)。 
+　　(10)log函数：自然对数函数，返回一个数字的自然对数(e)值。 
+　　(11)max函数：返回两个数的最大值。 
+　　(12)min函数：返回两个数的最小值。 
+　　(13)pow函数：返回一个数字的乘方值。 
+　　(14)random函数：返回一个0～1的随机数值。 
+　　(15)round函数：返回一个数字的四舍五入值，类型是整数。 
+　　(16)sin函数：返回一个数字的正弦值，结果为-1～1。 
+　　(17)sqrt函数：返回一个数字的平方根值。 
+　　(18)tan函数：返回一个数字的正切值。 
+
+5.字符串函数 
+　　javascript字符串函数完成对字符串的字体大小、颜色、长度和查找等操作，共包括以下20个函数： 
+　　(1)anchor函数：产生一个链接点(anchor)以作超级链接用。anchor函数设定的链接点的名称，另一个函数link设定的URL地址。 
+　　(2)big函数：将字体加到一号，与...标签结果相同。 
+　　(3)blink函数：使字符串闪烁，与...标签结果相同。 
+　　(4)bold函数：使字体加粗，与...标签结果相同。 
+　　(5)charAt函数：返回字符串中指定的某个字符。 
+　　(6)fixed函数：将字体设定为固定宽度字体，与...标签结果相同。 
+　　(7)fontcolor函数：设定字体颜色，与标签结果相同。 
+　　(8)fontsize函数：设定字体大小，与标签结果相同。 
+　　(9)indexOf函数：返回字符串中第一个查找到的下标index，从左边开始查找。 
+　　(10)italics函数：使字体成为斜体字，与...标签结果相同。 
+　　(11)lastIndexOf函数：返回字符串中第一个查找到的下标index，从右边开始查找。 
+　　(12)length函数：返回字符串的长度。(不用带括号) 
+　　(13)link函数：产生一个超级链接，相当于设定的URL地址。 
+　　(14)small函数：将字体减小一号，与...标签结果相同。 
+　　(15)strike函数：在文本的中间加一条横线，与...标签结果相同。 
+　　(16)sub函数：显示字符串为下标字(subscript)。 
+　　(17)substring函数：返回字符串中指定的几个字符。 
+　　(18)sup函数：显示字符串为上标字(superscript)。 
+　　(19)toLowerCase函数：将字符串转换为小写。 
+　　(20)toUpperCase函数：将字符串转换为大写。
+
+事件源对象 
+　　event.srcElement.tagName 
+　　event.srcElement.type 
+
+捕获释放 
+　　event.srcElement.setCapture(); 
+　　event.srcElement.releaseCapture(); 
+
+事件按键 
+　　event.keyCode 
+　　event.shiftKey 
+　　event.altKey 
+　　event.ctrlKey 
+
+事件返回值 
+　　event.returnValue 
+
+鼠标位置 
+　　event.x 
+　　event.y 
+
+窗体活动元素 
+　　document.activeElement 
+
+绑定事件 
+　　document.captureEvents(Event.KEYDOWN); 
+
+访问窗体元素 
+　　document.all("txt").focus(); 
+　　document.all("txt").select(); 
+
+窗体命令 
+　　document.execCommand 
+
+窗体COOKIE 
+　　document.cookie 
+
+菜单事件 
+　　document.oncontextmenu 
+
+创建元素 
+　　document.createElement("SPAN"); 
+
+根据鼠标获得元素： 
+　　document.elementFromPoint(event.x,event.y).tagName=="TD 
+　　document.elementFromPoint(event.x,event.y).appendChild(ms) 
+
+窗体图片 
+　　document.images[索引] 
+
+窗体事件绑定 
+　　document.onmousedown=scrollwindow; 
+
+元素 
+　　document.窗体.elements[索引] 
+
+对象绑定事件 
+　　document.all.xxx.detachEvent('onclick',a); 
+
+插件数目 
+　　navigator.plugins 
+
+取变量类型 
+　　typeof($js_libpath) == "undefined" 
+　　下拉框 
+　　下拉框.options[索引] 
+　　下拉框.options.length 
+
+查找对象 
+　　document.getElementsByName("r1"); 
+　　document.getElementById(id); 
+
+定时 
+　　timer=setInterval('scrollwindow()',delay); 
+　　clearInterval(timer); 
+
+UNCODE编码 
+　　escape() ,unescape 
+
+父对象 
+　　obj.parentElement(dhtml) 
+　　obj.parentNode(dom) 
+
+交换表的行 
+　　TableID.moveRow(2,1) //将第三行与第二行交换
+
+替换CSS 
+　　document.all.csss.href = "a.css"; 
+
+并排显示 
+　　display:inline 
+
+隐藏焦点 
+　　hidefocus=true 
+
+根据宽度换行 
+　　style="word-break:break-all" 
+
+自动刷新 
+　　<meta HTTP-EQUIV="refresh" CONTENT="8;URL=http://hi.baidu.com"> 
+
+简单邮件 
+　　<a href="mailto:jishu@bj08ay.cn?subject=thisistitle&body=thisisthewordswhatyouwanttowriteforme"> 
+
+快速转到位置 
+　　obj.scrollIntoView(true) 
+
+锚 
+　　<a name="first"> 
+　　<a href="#first">anchors</a> 
+
+网页传递参数 
+　　location.search(); 
+
+可编辑 
+　　obj.contenteditable=true 
+
+执行菜单命令 
+　　obj.execCommand 
+
+双字节字符 
+　　/[^\x00-\xff]/ 
+
+汉字 
+　　/[\u4e00-\u9fa5]/ 
+
+让英文字符串超出表格宽度自动换行 
+　　word-wrap: break-word; word-break: break-all; 
+
+透明背景 
+　　<IFRAME src="1.htm" width=300 height=180 allowtransparency></iframe> 
+
+获得style内容 
+　　obj.style.cssText 
+
+HTML标签 
+　　document.documentElement.innerHTML 
+
+第一个style标签 
+　　document.styleSheets[0] 
+
+style标签里的第一个样式 
+　　document.styleSheets[0].rules[0] 
+
+防止点击空链接时，页面往往重置到页首端。 
+　　<a href="javascript:function()">word</a> 
+
+　　<a href="javascript:;">word</a> 
+　　
+上一网页源 
+　　asp: 
+　　request.servervariables("HTTP_REFERER") 
+　　javascript: 
+　　document.referrer 
+
+释放内存 
+　　CollectGarbage(); 
+
+禁止右键 
+　　document.oncontextmenu = function() { return false;} 
+
+禁止保存 
+　　<noscript><iframe src="*.htm"></iframe></noscript> 
+
+禁止选取
+　　<body oncontextmenu="return false" ondragstart="return false" onselectstart ="return false" onselect="document.selection.empty()" oncopy="document.selection.empty()" onbeforecopy="returnfalse"onmouseup="document.selection.empty()> 
+
+
+禁止粘贴 
+　　<input type=text onpaste="return false"> 
+
+地址栏图标 
+　　<link rel="Shortcut Icon" href="favicon.ico"> 
+　　favicon.ico 名字最好不变16*16的16色,放虚拟目录根目录下 
+
+收藏栏图标 
+　　<link rel="Bookmark" href="favicon.ico"> 
+
+查看源码 
+　　<input type=button value=查看网页源代码 onclick="window.location = 'view-source:'+ 'http://www.csdn.net/'"> 
+
+关闭输入法 
+　　<input style="ime-mode:disabled">
+
+自动全选 
+　　<input type=text name=text1 value="123" onfocus="this.select()"> 
+
+ENTER键可以让光标移到下一个输入框 
+　　<input onkeydown="if(event.keyCode==13)event.keyCode=9"> 
+
+文本框的默认值 
+　　<input type=text value="123" onfocus="alert(this.defaultValue)"> 
+
+获得时间所代表的微秒 
+　　var n1 = new Date("2004-10-10".replace(/-/g, "\/")).getTime() 
+
+窗口是否关闭 
+　　win.closed 
+
+checkbox扁平 
+　　<input type=checkbox style="position: absolute; clip:rect(5px 15px 15px 5px)"><br> 
+
+获取选中内容 
+　　document.selection.createRange().duplicate().text 
+
+自动完成功能 
+　　<input type=text autocomplete=on>打开该功能 
+　　<input type=text autocomplete=off>关闭该功能 
+
+窗口最大化 
+　　<body onload="window.resizeTo(window.screen.width - 4,window.screen.height-50);window.moveTo(-4,-4)"> 
+
+无关闭按钮IE 
+　　window.open("aa.htm", "meizz", "fullscreen=7"); 
+
+统一编码/解码 
+　　alert(decodeURIComponent(encodeURIComponent("http://你好.com?as= hehe"))) 
+　　encodeURIComponent对":"、"/"、";" 和 "?"也编码 
+
+表格行指示 
+　　<tr onmouseover="this.bgColor='#f0f0f0'" onmouseout="this.bgColor='#ffffff'"> 
+
+各种尺寸
+　　s += "\r\n网页可见区域宽："+ document.body.clientWidth; 
+　　s += "\r\n网页可见区域高："+ document.body.clientHeight; 
+　　s += "\r\n网页可见区域高："+ document.body.offsetWeight +" (包括边线的宽)"; 
+　　s += "\r\n网页可见区域高："+ document.body.offsetHeight +" (包括边线的宽)"; 
+　　s += "\r\n网页正文全文宽："+ document.body.scrollWidth; 
+　　s += "\r\n网页正文全文高："+ document.body.scrollHeight; 
+　　s += "\r\n网页被卷去的高："+ document.body.scrollTop; 
+　　s += "\r\n网页被卷去的左："+ document.body.scrollLeft; 
+　　s += "\r\n网页正文部分上："+ window.screenTop; 
+　　s += "\r\n网页正文部分左："+ window.screenLeft; 
+　　s += "\r\n屏幕分辨率的高："+ window.screen.height; 
+　　s += "\r\n屏幕分辨率的宽："+ window.screen.width; 
+　　s += "\r\n屏幕可用工作区高度："+ window.screen.availHeight; 
+　　s += "\r\n屏幕可用工作区宽度："+ window.screen.availWidth;
+
+
+
+Ajax请求
+
+jquery ajax函数
+
+我自己封装了一个ajax的函数，代码如下：
+
+?
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+var Ajax = function(url, type success, error) {
+$.ajax({
+url: url,
+type: type,
+dataType: 'json',
+timeout: 10000,
+success: function(d) {
+var data = d.data;
+success && success(data);
+},
+error: function(e) {
+error && error(e);
+}
+});
+};
+// 使用方法：
+Ajax('/data.json', 'get', function(data) {
+console.log(data);
+});
+jsonp方式
+
+有时候我们为了跨域，要使用jsonp的方法，我也封装了一个函数：
+
+?
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+function jsonp(config) {
+var options = config || {}; // 需要配置url, success, time, fail四个属性
+var callbackName = ('jsonp_' + Math.random()).replace(".", "");
+var oHead = document.getElementsByTagName('head')[0];
+var oScript = document.createElement('script');
+oHead.appendChild(oScript);
+window[callbackName] = function(json) { //创建jsonp回调函数
+oHead.removeChild(oScript);
+clearTimeout(oScript.timer);
+window[callbackName] = null;
+options.success && options.success(json); //先删除script标签，实际上执行的是success函数
+};
+oScript.src = options.url + '?' + callbackName; //发送请求
+if (options.time) { //设置超时处理
+oScript.timer = setTimeout(function () {
+window[callbackName] = null;
+oHead.removeChild(oScript);
+options.fail && options.fail({ message: "超时" });
+}, options.time);
+}
+};
+// 使用方法：
+jsonp({
+url: '/b.com/b.json',
+success: function(d){
+//数据处理
+},
+time: 5000,
+fail: function(){
+//错误处理
+} 
+});
+常用正则验证表达式
+
+手机号验证
+
+?
+1
+2
+3
+4
+var validate = function(num) {
+var exp = /^1[3-9]\d{9}$/;
+return exp.test(num);
+};
+身份证号验证
+
+?
+1
+var exp = /^[1-9]{1}[0-9]{14}$|^[1-9]{1}[0-9]{16}([0-9]|[xX])$/;
+ip验证
+
+?
+1
+var exp = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/;
+常用js函数
+
+?
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+$(window).scroll(function() {
+var a = $(window).scrollTop();
+if(a > 100) {
+$('.go-top').fadeIn();
+}else {
+$('.go-top').fadeOut();
+}
+});
+$(".go-top").click(function(){
+$("html,body").animate({scrollTop:"0px"},'600');
+});
+阻止冒泡
+
+?
+1
+2
+3
+4
+5
+6
+7
+8
+function stopBubble(e){
+e = e || window.event; 
+if(e.stopPropagation){
+e.stopPropagation(); //W3C阻止冒泡方法 
+}else { 
+e.cancelBubble = true; //IE阻止冒泡方法 
+} 
+}
+全部替换replaceAll
+
+?
+1
+2
+3
+4
+var replaceAll = function(bigStr, str1, str2) { //把bigStr中的所有str1替换为str2
+var reg = new RegExp(str1, 'gm');
+return bigStr.replace(reg, str2);
+}
+获取浏览器url中的参数值
+
+?
+1
+2
+3
+var getURLParam = function(name) {
+return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)', "ig").exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null;
+};
+深度拷贝对象
+
+?
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+function cloneObj(obj) {
+var o = obj.constructor == Object ? new obj.constructor() : new obj.constructor(obj.valueOf());
+for(var key in obj){
+if(o[key] != obj[key] ){
+if(typeof(obj[key]) == 'object' ){
+o[key] = mods.cloneObj(obj[key]);
+}else{
+o[key] = obj[key];
+}
+}
+}
+return o;
+}
+数组去重
+
+?
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+var unique = function(arr) {
+var result = [], json = {};
+for (var i = 0, len = arr.length; i < len; i++){
+if (!json[arr[i]]) {
+json[arr[i]] = 1;
+result.push(arr[i]); //返回没被删除的元素
+}
+}
+return result;
+};
+判断数组元素是否重复
+
+?
+1
+2
+3
+4
+5
+6
+7
+8
+var isRepeat = function(arr) { //arr是否有重复元素
+var hash = {};
+for (var i in arr) {
+if (hash[arr[i]]) return true;
+hash[arr[i]] = true;
+}
+return false;
+};
+生成随机数
+
+?
+1
+2
+3
+function randombetween(min, max){
+return min + (Math.random() * (max-min +1));
+}
+操作cookie
+
+?
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+own.setCookie = function(cname, cvalue, exdays){
+var d = new Date();
+d.setTime(d.getTime() + (exdays*24*60*60*1000));
+var expires = 'expires='+d.toUTCString();
+document.cookie = cname + '=' + cvalue + '; ' + expires;
+};
+own.getCookie = function(cname) {
+var name = cname + '=';
+var ca = document.cookie.split(';');
+for(var i=0; i< ca.length; i++) {
+var c = ca[i];
+while (c.charAt(0) == ' ') c = c.substring(1);
+if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
+}
+return '';
+};
+知识技巧总结
+
+数据类型
+
+underfined、null、0、false、NaN、空字符串。他们的逻辑非结果均为true。
+
+闭包格式
+
+好处：避免命名冲突（全局变量污染）。
+
+?
+1
+2
+3
+(function(a, b) {
+console.log(a+b); //30
+})(10, 20);
+截取和清空数组
+
+?
+1
+2
+3
+var arr = [12, 222, 44, 88];
+arr.length = 2; //截取，arr = [12, 222]; 
+arr.length = 0; //清空，arr will be equal to [].
+获取数组的最大最小值
+
+?
+1
+2
+3
+var numbers = [5, 45822, 120, -215];
+var maxInNumbers = Math.max.apply(Math, numbers); //45822
+var minInNumbers = Math.min.apply(Math, numbers); //-215
+浮点数计算问题
+
+?
+1
+0.1 + 0.2 == 0.3 //false
+为什么呢？因为0.1+0.2等于0.30000000000000004。JavaScript的数字都遵循IEEE 754标准构建，在内部都是64位浮点小数表示。可以通过使用toFixed()来解决这个问题。
+
+数组排序sort函数
+
+?
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+var arr = [1, 5, 6, 3]; //数字数组
+arr.sort(function(a, b) {
+return a - b; //从小到大排
+return b - a; //从大到小排
+return Math.random() - 0.5; //数组洗牌
+});
+var arr = [{ //对象数组
+num: 1,
+text: 'num1'
+}, {
+num: 5,
+text: 'num2'
+}, {
+num: 6,
+text: 'num3'
+}, {
+num: 3,
+text: 'num4'
+}]; 
+arr.sort(function(a, b) {
+return a.num - b.num; //从小到大排
+return b.num - a.num; //从大到小排
+});
+对象和字符串的转换
+
+?
+1
+2
+3
+var obj = {a: 'aaa', b: 'bbb'};
+var objStr = JSON.stringify(obj); // "{"a":"aaa","b":"bbb"}"
+var newObj = JSON.parse(objStr); // {a: "aaa", b: "bbb"}
+git笔记
+
+git使用之前的配置
+
+1.git config --global user.email xxx@163.com
+
+2.git config --global user.name xxx
+
+3.ssh-keygen -t rsa -C xxx@163.com(邮箱地址) // 生成ssh
+
+4.找到.ssh文件夹打开，使用cat id_rsa.pub //打开公钥ssh串
+
+5.登陆github，settings － SSH keys － add ssh keys （把上面的内容全部添加进去即可）
+
+说明：然后这个邮箱（xxxxx@gmail.com）对应的账号在github上就有权限对仓库进行操作了。可以尽情的进行下面的git命令了。
+
+git常用命令
+
+1、git config user.name / user.email //查看当前git的用户名称、邮箱
+
+2、git clone https://github.com/jarson7426/javascript.git project //clone仓库到本地。
+
+3、修改本地代码，提交到分支: git add file / git commit -m “新增文件”
+
+4、把本地库推送到远程库: git push origin master
+
+5、查看提交日志：git log -5
+
+6、返回某一个版本：git reset --hard 123
+
+7、分支：git branch / git checkout name / git checkout -b dev
+
+8、合并name分支到当前分支：git merge name / git pull origin
+
+9、删除本地分支：git branch -D name
+
+10、删除远程分支： git push origin :daily/x.x.x
+
+11、git checkout -b mydev origin/daily/1.0.0 //把远程daily分支映射到本地mydev分支进行开发
+12、合并远程分支到当前分支 git pull origin daily/1.1.1
+
+13、发布到线上：
+
+git tag publish/0.1.5
+git push origin publish/0.1.5:publish/0.1.5
+14、线上代码覆盖到本地：
+
+git checkout --theirs build/scripts/ddos
+git checkout --theirs src/app/ddos
