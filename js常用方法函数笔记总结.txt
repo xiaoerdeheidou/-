@@ -1166,3 +1166,12 @@ git push origin publish/0.1.5:publish/0.1.5
 
 git checkout --theirs build/scripts/ddos
 git checkout --theirs src/app/ddos
+
+
+
+
+/*7手机端收起弹出键盘*/
+var hideKeyboard = function() {
+    document.activeElement.blur(); //ios
+    $("input").blur();
+};
